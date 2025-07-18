@@ -1,0 +1,173 @@
+ 1️⃣ width: 100%;
+What it does:
+
+Makes the element take 100% of the width of its parent container.
+
+If the parent is 300px wide, the element will also be 300px wide.
+
+Commonly used for:
+
+images,
+
+divs,
+
+flex children to stretch to container width.
+
+Example:
+
+css
+Copy
+Edit
+.res-image {
+  width: 100%;
+}
+✅ Outcome: The image will scale to the full width of its .res-card container, making it responsive across screen sizes.
+
+🚩 2️⃣ aspect-ratio: 4 / 3;
+What it does:
+Sets the aspect ratio (width : height) of the element.
+
+4 / 3 means:
+
+For every 4 units of width, the element will have 3 units of height.
+
+Why it is useful:
+✅ Makes images/videos auto-scale height based on width, ensuring:
+
+Consistent shape across devices,
+
+No hardcoded height needed,
+
+No stretching or squashing of layout.
+
+Example Calculation:
+If the element’s width becomes 400px:
+
+height = (3 / 4) * 400 = 300px.
+
+If the element’s width becomes 200px:
+
+height = (3 / 4) * 200 = 150px.
+
+Usage in your card:
+css
+Copy
+Edit
+.res-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+✅ This will:
+
+Make the image take full container width,
+
+Maintain a consistent 4:3 shape, automatically adjusting height,
+
+Make your card scalable on different devices without breaking layout.
+
+🚩 3️⃣ object-fit: cover;
+What it does:
+Controls how the image is resized to fit inside its container when its aspect ratio differs from the container’s aspect ratio.
+
+Common values:
+fill: Stretches the image to fit, may distort it.
+
+contain: Entire image is visible, may leave empty spaces (letterboxing).
+
+cover: Image fills the container completely, cropping parts if necessary while maintaining aspect ratio.
+
+In your case:
+css
+Copy
+Edit
+.res-image {
+  object-fit: cover;
+}
+✅ Ensures:
+
+The image fills the entire container area.
+
+If the image’s aspect ratio differs slightly, it crops edges rather than distorting.
+
+You get visually pleasing, full-area images in your cards.
+
+🚩 4️⃣ width: min(90%, 300px);
+What it does:
+Sets the element’s width to the smaller (minimum) of:
+
+90% of its parent’s width,
+
+OR 300px.
+
+Example:
+Case 1:
+Parent width: 400px
+
+90% of 400 = 360px
+
+min(360px, 300px) = 300px
+✅ Element width = 300px.
+
+Case 2:
+Parent width: 200px
+
+90% of 200 = 180px
+
+min(180px, 300px) = 180px
+✅ Element width = 180px.
+
+
+*****************************************************************************************
+
+
+1️⃣ display: grid;
+✅ This makes .res-container a CSS Grid container, enabling it to:
+
+Arrange its child elements (<RestaurantCard />) in rows and columns automatically.
+
+Control the layout using grid-template-columns, gap, etc.
+
+🚩 2️⃣ grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+✅ What it does:
+Defines how many columns you will have and how wide they will be.
+
+Breaking down:
+repeat(auto-fill, minmax(250px, 1fr)) means:
+✅ repeat(...)
+Repeat the column definition inside as many times as needed.
+
+✅ auto-fill
+Automatically add as many columns as will fit in the container based on the screen size.
+
+E.g.:
+
+If your container width is 1000px, it will calculate:
+
+How many 250px columns can fit (4 columns with gap considered).
+
+✅ minmax(250px, 1fr)
+Each column:
+
+Minimum width: 250px
+
+Maximum width: 1fr (fraction of available space, allowing columns to expand and fill the row)
+
+✅ Why is this powerful?
+It creates a responsive grid:
+
+On wide screens, multiple cards will appear side by side.
+
+On smaller screens, fewer cards will appear per row.
+
+On mobile, it will fall back to a single column when the screen is too narrow for 250px cards.
+
+🚩 3️⃣ gap: 1rem;
+✅ Adds spacing between grid items (both row and column spacing).
+
+1rem = 16px by default (based on your root font size).
+
+Prevents cards from sticking to each other.
+
+🚩 4️⃣ padding: 1rem;
+✅ Adds inner spacing inside the container (.res-container) from its edges,
+so cards do not touch the container’s border.
